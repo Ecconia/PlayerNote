@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender;
 
 public class NoteHandler
 {
-	private HashMap<UUID, ArrayList<Note>> serverNotes;
+	private final HashMap<UUID, ArrayList<Note>> serverNotes;
 	
 	public NoteHandler(HashMap<UUID, ArrayList<Note>> serverNotes)
 	{

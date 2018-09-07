@@ -25,13 +25,13 @@ public class NotePlugin extends JavaPlugin
 	
 	public void onEnable()
 	{
-		HashMap<UUID, ArrayList<Note>> servernotes = readNotes();
-		if(servernotes == null)
+		HashMap<UUID, ArrayList<Note>> serverNotes = readNotes();
+		if(serverNotes == null)
 		{
-			servernotes = new HashMap<UUID, ArrayList<Note>>();
+			serverNotes = new HashMap<UUID, ArrayList<Note>>();
 		}
 		
-		notehdlr = new NoteHandler(servernotes);
+		notehdlr = new NoteHandler(serverNotes);
 		getServer().getPluginManager().registerEvents(new PlayerLogin(notehdlr), this);
 		getCommand("playernote").setExecutor(new CreateNote(notehdlr));
 		getCommand("getplayernote").setExecutor(new GetNote(notehdlr));
@@ -45,7 +45,7 @@ public class NotePlugin extends JavaPlugin
 		writeNotes(notehdlr.getServerNotes());
 	}
 	
-	public void writeNotes(HashMap<UUID, ArrayList<Note>> notes)
+	public static void writeNotes(HashMap<UUID, ArrayList<Note>> notes)
 	{
 		try
 		{
@@ -55,13 +55,13 @@ public class NotePlugin extends JavaPlugin
 		}
 		catch(IOException e)
 		{
-			// TODO Auto-generated catch block
+			//TODO: Provide proper feedback
 			e.printStackTrace();
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	public HashMap<UUID, ArrayList<Note>> readNotes()
+	public static HashMap<UUID, ArrayList<Note>> readNotes()
 	{
 		HashMap<UUID, ArrayList<Note>> notes = null;
 		try
