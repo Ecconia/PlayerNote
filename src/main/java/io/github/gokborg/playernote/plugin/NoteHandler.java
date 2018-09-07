@@ -19,33 +19,34 @@ public class NoteHandler
 	
 	public void addNote(CommandSender sender, OfflinePlayer other, Date date, String msg, Judgement type)
 	{
-		UUID pid = other.getUniqueId();
-		if(serverNotes.containsKey(pid))
+		UUID uuid = other.getUniqueId();
+		if(serverNotes.containsKey(uuid))
 		{
-			int noteId = serverNotes.get(pid).size() + 1;
-			serverNotes.get(pid).add(new Note(sender.getName(), other.getName(), date, msg, type, noteId));
+			int noteId = serverNotes.get(uuid).size() + 1;
+			serverNotes.get(uuid).add(new Note(sender.getName(), other.getName(), date, msg, type, noteId));
 		}
 		else
 		{
-			serverNotes.put(pid, new ArrayList<Note>());
-			serverNotes.get(pid).add(new Note(sender.getName(), other.getName(), date, msg, type, 1));
+			ArrayList<Note> playerNotes = new ArrayList<Note>();
+			playerNotes.add(new Note(sender.getName(), other.getName(), date, msg, type, 1));
+			serverNotes.put(uuid, playerNotes);
 		}
 	}
 	
-	public void removeNote(UUID playerUUID, int noteId)
+	public void removeNote(UUID uuid, int noteID)
 	{
-		serverNotes.get(playerUUID).remove(noteId);
+		serverNotes.get(uuid).remove(noteID);
 	}
 	
-	public void wipe(UUID playerUUID)
+	public void wipe(UUID uuid)
 	{
-		serverNotes.remove(playerUUID);
-		serverNotes.put(playerUUID, new ArrayList<Note>());
+		serverNotes.remove(uuid);
+		serverNotes.put(uuid, new ArrayList<Note>());
 	}
 	
-	public ArrayList<Note> getNotes(UUID playerUUID)
+	public ArrayList<Note> getNotes(UUID uuid)
 	{
-		return serverNotes.get(playerUUID);
+		return serverNotes.get(uuid);
 	}
 	
 	public HashMap<UUID, ArrayList<Note>> getServerNotes()
@@ -53,20 +54,13 @@ public class NoteHandler
 		return serverNotes;
 	}
 	
-	public boolean hasNotes(UUID playerUUID)
+	public boolean hasNotes(UUID uuid)
 	{
-		if(serverNotes.containsKey(playerUUID))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return serverNotes.containsKey(uuid);
 	}
 	
-	public void createPage(UUID pid)
+	public void createPage(UUID uuid)
 	{
-		serverNotes.put(pid, new ArrayList<Note>());
+		serverNotes.put(uuid, new ArrayList<Note>());
 	}
 }
