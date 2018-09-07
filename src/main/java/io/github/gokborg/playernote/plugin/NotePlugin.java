@@ -19,14 +19,13 @@ import io.github.gokborg.playernote.cmd.WipeServerNotes;
 
 public class NotePlugin extends JavaPlugin
 {
-	private HashMap<UUID, ArrayList<Note>> servernotes;
 	//TODO: Add pages to notes
 	//TODO: Remove option for notes
 	private NoteHandler notehdlr;
 	
 	public void onEnable()
 	{
-		servernotes = readNotes();
+		HashMap<UUID, ArrayList<Note>> servernotes = readNotes();
 		if(servernotes == null)
 		{
 			servernotes = new HashMap<UUID, ArrayList<Note>>();
