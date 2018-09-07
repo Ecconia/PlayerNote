@@ -3,8 +3,8 @@ package io.github.gokborg.playernote.plugin;
 import java.io.Serializable;
 import java.util.Date;
 
-
-public class Note implements Serializable{
+public class Note implements Serializable
+{
 	private static final long serialVersionUID = 1L;
 	private String msg;
 	private Date date;
@@ -13,7 +13,8 @@ public class Note implements Serializable{
 	private ID type;
 	private int noteID;
 	
-	public Note(String sender, String other, Date date, String msg, ID type, int noteID) {
+	public Note(String sender, String other, Date date, String msg, ID type, int noteID)
+	{
 		this.msg = msg;
 		this.date = date;
 		this.sender = sender;
@@ -21,40 +22,64 @@ public class Note implements Serializable{
 		this.type = type;
 		this.noteID = noteID;
 	}
-	public String getMsg() {
+	
+	public String getMsg()
+	{
 		return msg;
 	}
-	public void setMsg(String msg) {
+	
+	public void setMsg(String msg)
+	{
 		this.msg = msg;
 	}
-	public Date getDate() {
+	
+	public Date getDate()
+	{
 		return date;
 	}
-	public void setDate(Date date) {
+	
+	public void setDate(Date date)
+	{
 		this.date = date;
 	}
-	public String getSender() {
+	
+	public String getSender()
+	{
 		return sender;
 	}
-	public void setSender(String sender) {
+	
+	public void setSender(String sender)
+	{
 		this.sender = sender;
 	}
-	public String getOther() {
+	
+	public String getOther()
+	{
 		return other;
 	}
-	public void setOther(String other) {
+	
+	public void setOther(String other)
+	{
 		this.other = other;
 	}
-	public ID getType() {
+	
+	public ID getType()
+	{
 		return type;
 	}
-	public void setType(ID type) {
+	
+	public void setType(ID type)
+	{
 		this.type = type;
 	}
-	public int getNoteID() {
+	
+	public int getNoteID()
+	{
 		return noteID;
 	}
-	public void setNoteID(int noteID) {
+	
+	public void setNoteID(int noteID)
+	{
 		this.noteID = noteID;
 	}
 }

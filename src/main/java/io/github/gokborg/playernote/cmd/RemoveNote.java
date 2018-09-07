@@ -8,53 +8,70 @@ import org.bukkit.command.CommandSender;
 
 import io.github.gokborg.playernote.plugin.NoteHandler;
 
-public class RemoveNote implements CommandExecutor{
+public class RemoveNote implements CommandExecutor
+{
 	NoteHandler notehdlr;
-	public RemoveNote(NoteHandler notehdlr) {
+	
+	public RemoveNote(NoteHandler notehdlr)
+	{
 		this.notehdlr = notehdlr;
 	}
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("rmplayernote") && sender.hasPermission("rmplayernote.permission")) {
-			if(args.length == 2) {
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	{
+		if(cmd.getName().equalsIgnoreCase("rmplayernote") && sender.hasPermission("rmplayernote.permission"))
+		{
+			if(args.length == 2)
+			{
 				OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-				if(player != null) {
-					if (notehdlr.hasNotes(player.getUniqueId())) {
+				if(player != null)
+				{
+					if(notehdlr.hasNotes(player.getUniqueId()))
+					{
 						int value = Integer.valueOf(args[1]);
-						if (value >= 1) {
-							if(notehdlr.getNotes(player.getUniqueId()) != null) {
-								if (value > notehdlr.getNotes(player.getUniqueId()).size()) {
+						if(value >= 1)
+						{
+							if(notehdlr.getNotes(player.getUniqueId()) != null)
+							{
+								if(value > notehdlr.getNotes(player.getUniqueId()).size())
+								{
 									sender.sendMessage("Invalid number!");
 									return false;
 								}
+								
 								value -= 1;
 								notehdlr.removeNote(player.getUniqueId(), value);
 								sender.sendMessage("The note has been removed!");
 							}
-							else {
+							else
+							{
 								sender.sendMessage("The player's list is already empty!");
 							}
 						}
-						else {
+						else
+						{
 							sender.sendMessage("Not a valid number!");
 							return false;
 						}
 						
 					}
 				}
-				else {
+				else
+				{
 					sender.sendMessage("Invalid player!");
 					return false;
 				}
 			}
-			else {
+			else
+			{
 				return false;
 			}
+			
 			return true;
 		}
+		
 		return false;
 	}
-	
 }

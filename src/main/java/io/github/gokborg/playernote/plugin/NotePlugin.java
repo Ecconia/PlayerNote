@@ -17,16 +17,21 @@ import io.github.gokborg.playernote.cmd.RemoveNote;
 import io.github.gokborg.playernote.cmd.WipeNotes;
 import io.github.gokborg.playernote.cmd.WipeServerNotes;
 
-public class NotePlugin extends JavaPlugin{
+public class NotePlugin extends JavaPlugin
+{
 	private HashMap<UUID, ArrayList<Note>> servernotes;
 	//TODO: Add pages to notes
 	//TODO: Remove option for notes
 	private NoteHandler notehdlr;
-	public void onEnable() {
+	
+	public void onEnable()
+	{
 		servernotes = readNotes();
-		if (servernotes == null) {
+		if(servernotes == null)
+		{
 			servernotes = new HashMap<UUID, ArrayList<Note>>();
 		}
+		
 		notehdlr = new NoteHandler(servernotes);
 		getServer().getPluginManager().registerEvents(new PlayerLogin(notehdlr), this);
 		getCommand("playernote").setExecutor(new CreateNote(notehdlr));
@@ -36,31 +41,40 @@ public class NotePlugin extends JavaPlugin{
 		getCommand("clearservernotes").setExecutor(new WipeServerNotes(notehdlr));
 	}
 	
-	public void onDisable() {
+	public void onDisable()
+	{
 		writeNotes(notehdlr.getServerNotes());
 	}
 	
-	public void writeNotes(HashMap<UUID, ArrayList<Note>> notes){
-		try {
+	public void writeNotes(HashMap<UUID, ArrayList<Note>> notes)
+	{
+		try
+		{
 			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("notesdata.bin"));
 			os.writeObject(notes);
 			os.close();
-		} catch (IOException e) {
+		}
+		catch(IOException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+	
 	@SuppressWarnings("unchecked")
-	public HashMap<UUID, ArrayList<Note>> readNotes(){
+	public HashMap<UUID, ArrayList<Note>> readNotes()
+	{
 		HashMap<UUID, ArrayList<Note>> notes = null;
-		try {
+		try
+		{
 			ObjectInputStream is = new ObjectInputStream(new FileInputStream("notesdata.bin"));
 			notes = (HashMap<UUID, ArrayList<Note>>) is.readObject();
 			is.close();
-		} catch (IOException | ClassNotFoundException e) {
-			
 		}
+		catch(IOException | ClassNotFoundException e)
+		{
+		}
+		
 		return notes;
 	}
-	
 }

@@ -11,48 +11,62 @@ import org.bukkit.command.CommandSender;
 import io.github.gokborg.playernote.plugin.ID;
 import io.github.gokborg.playernote.plugin.NoteHandler;
 
-public class CreateNote implements CommandExecutor{
+public class CreateNote implements CommandExecutor
+{
 	private NoteHandler notehdlr;
 	
-	public CreateNote(NoteHandler notehdlr) {
+	public CreateNote(NoteHandler notehdlr)
+	{
 		this.notehdlr = notehdlr;
 	}
+	
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-		if (cmd.getName().equalsIgnoreCase("playernote") && args.length >= 3){
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	{
+		if(cmd.getName().equalsIgnoreCase("playernote") && args.length >= 3)
+		{
 			OfflinePlayer other = Bukkit.getOfflinePlayer(args[0]);
-			if (Bukkit.getOfflinePlayer(args[0]) != null) {
+			if(Bukkit.getOfflinePlayer(args[0]) != null)
+			{
 				String msg = "";
-				for (int i = 2; i < args.length; i++) {
+				for(int i = 2; i < args.length; i++)
+				{
 					msg += args[i] + " ";
 				}
+				
 				ID type = null;
 				
-				if (args[1].equalsIgnoreCase("+")) {
+				if(args[1].equalsIgnoreCase("+"))
+				{
 					type = ID.POSITIVE;
 				}
-				else if(args[1].equalsIgnoreCase("-")) {
+				else if(args[1].equalsIgnoreCase("-"))
+				{
 					type = ID.NEGATIVE;
 				}
-				else if(args[1].equalsIgnoreCase("!")) {
+				else if(args[1].equalsIgnoreCase("!"))
+				{
 					type = ID.ISSUE;
 				}
-				else {
+				else
+				{
 					sender.sendMessage("Invalid type!");
 					return false;
 				}
+				
 				notehdlr.addNote(sender, other, new Date(), msg, type);
 				sender.sendMessage("Note has been added!");
 			}
-			else {
+			else
+			{
 				sender.sendMessage("Player is not online!");
 				return false;
 			}
 			
 			return true;
 		}
+		
 		return false;
-	}	
+	}
 }
-
