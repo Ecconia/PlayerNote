@@ -33,7 +33,6 @@ public class NotePlugin extends JavaPlugin
 		}
 		
 		noteHandler = new NoteHandler(serverNotes);
-		getServer().getPluginManager().registerEvents(new PlayerLogin(noteHandler), this);
 		
 		getCommand("playernote").setExecutor(new CreateNote(noteHandler));
 		getCommand("getplayernote").setExecutor(new GetNote(noteHandler));

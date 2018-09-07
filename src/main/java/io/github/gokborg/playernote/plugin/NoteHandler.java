@@ -21,28 +21,34 @@ public class NoteHandler
 	public void addNote(CommandSender sender, OfflinePlayer targetPlayer, Date date, String msg, Judgement type)
 	{
 		UUID uuid = targetPlayer.getUniqueId();
-		if(serverNotes.containsKey(uuid))
+		List<Note> playerNotes = serverNotes.get(uuid);
+		if(playerNotes == null)
 		{
-			int noteId = serverNotes.get(uuid).size() + 1;
-			serverNotes.get(uuid).add(new Note(sender.getName(), targetPlayer.getName(), date, msg, type, noteId));
-		}
-		else
-		{
-			List<Note> playerNotes = new ArrayList<Note>();
-			playerNotes.add(new Note(sender.getName(), targetPlayer.getName(), date, msg, type, 1));
+			playerNotes = new ArrayList<Note>();
 			serverNotes.put(uuid, playerNotes);
 		}
+		
+		//TODO: Will cause duplicated ID's after removal
+		int noteId = playerNotes.size() + 1;
+		playerNotes.add(new Note(sender.getName(), targetPlayer.getName(), date, msg, type, noteId));
 	}
 	
 	public void removeNote(UUID uuid, int noteID)
 	{
-		serverNotes.get(uuid).remove(noteID);
+		List<Note> playerNotes = serverNotes.get(uuid);
+		if(playerNotes != null)
+		{
+			playerNotes.remove(noteID);
+			if(playerNotes.isEmpty())
+			{
+				serverNotes.remove(uuid);
+			}
+		}
 	}
 	
 	public void wipe(UUID uuid)
 	{
 		serverNotes.remove(uuid);
-		serverNotes.put(uuid, new ArrayList<Note>());
 	}
 	
 	public List<Note> getNotes(UUID uuid)
@@ -58,10 +64,5 @@ public class NoteHandler
 	public boolean hasNotes(UUID uuid)
 	{
 		return serverNotes.containsKey(uuid);
-	}
-	
-	public void createPage(UUID uuid)
-	{
-		serverNotes.put(uuid, new ArrayList<Note>());
 	}
 }
