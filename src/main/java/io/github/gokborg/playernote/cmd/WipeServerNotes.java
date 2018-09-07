@@ -10,11 +10,11 @@ import io.github.gokborg.playernote.plugin.NoteHandler;
 
 public class WipeServerNotes implements CommandExecutor
 {
-	NoteHandler notehdlr;
+	NoteHandler noteHandler;
 	
-	public WipeServerNotes(NoteHandler notehdlr)
+	public WipeServerNotes(NoteHandler noteHandler)
 	{
-		this.notehdlr = notehdlr;
+		this.noteHandler = noteHandler;
 	}
 	
 	@Override
@@ -22,9 +22,9 @@ public class WipeServerNotes implements CommandExecutor
 	{
 		if(args.length == 1 && args[0].equalsIgnoreCase("confirm"))
 		{
-			for(UUID pid : notehdlr.getServerNotes().keySet())
+			for(UUID uuid : noteHandler.getServerNotes().keySet())
 			{
-				notehdlr.getServerNotes().get(pid).clear();
+				noteHandler.getServerNotes().get(uuid).clear();
 			}
 			
 			return true;

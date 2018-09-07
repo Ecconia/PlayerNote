@@ -1,7 +1,7 @@
 package io.github.gokborg.playernote.cmd;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -18,11 +18,11 @@ public class GetNote implements CommandExecutor
 {
 	//How many notes to display in chat
 	private final int DISPLAYAMT = 10;
-	private NoteHandler notehdlr;
+	private NoteHandler noteHandler;
 	
-	public GetNote(NoteHandler notehdlr)
+	public GetNote(NoteHandler noteHandler)
 	{
-		this.notehdlr = notehdlr;
+		this.noteHandler = noteHandler;
 	}
 	
 	//Function to see if a string is an int
@@ -56,18 +56,18 @@ public class GetNote implements CommandExecutor
 		if(args.length >= 1)
 		{
 			//Going through all players in the server notes
-			for(UUID pid : notehdlr.getServerNotes().keySet())
+			for(UUID uuid : noteHandler.getServerNotes().keySet())
 			{
-				OfflinePlayer player = Bukkit.getOfflinePlayer(pid);
+				OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(uuid);
 				//TODO: Missing null check.
 				//Check if that player is the one the person is looking for
-				if(player.getName().equalsIgnoreCase(args[0]))
+				if(targetPlayer.getName().equalsIgnoreCase(args[0]))
 				{
 					//Saving all the notes of the person they specified
-					ArrayList<Note> pNotes = notehdlr.getNotes(player.getUniqueId());
+					List<Note> playerNotes = noteHandler.getNotes(targetPlayer.getUniqueId());
 					
 					//Make it so that it always shows correct total pages
-					int sizeOfNotes = pNotes.size();
+					int sizeOfNotes = playerNotes.size();
 					int totalPages = sizeOfNotes / (DISPLAYAMT + 1) + 1;
 					
 					int pageNum = 1;
@@ -126,7 +126,7 @@ public class GetNote implements CommandExecutor
 						
 						endIndex = sizeOfNotes - 1 - ((pageNum - 1) * (DISPLAYAMT + 1));
 						startIndex = endIndex - DISPLAYAMT;
-						sender.sendMessage(player.getName() + "'s Notes");
+						sender.sendMessage(targetPlayer.getName() + "'s Notes");
 						sender.sendMessage("----------------------------");
 						SimpleDateFormat format = new SimpleDateFormat("MM/dd/yy");
 						//Limiting displaying of notes to the amount specified in the variable DISPLAYAMT
@@ -139,26 +139,26 @@ public class GetNote implements CommandExecutor
 							
 							if(i <= sizeOfNotes - 1)
 							{
-								String msg = " " + format.format(pNotes.get(i).getDate()) + " " + pNotes.get(i).getSender() + ": " + pNotes.get(i).getMsg();
+								String msg = " " + format.format(playerNotes.get(i).getDate()) + " " + playerNotes.get(i).getSender() + ": " + playerNotes.get(i).getMsg();
 								if(judgement != null)
 								{
-									if(pNotes.get(i).getJudgement() == judgement)
-										sender.sendMessage(judgement.getColor() + Integer.toString(notehdlr.getNotes(pid).indexOf(pNotes.get(i))) + ". " + "(" + args[1] + ")" + msg);
+									if(playerNotes.get(i).getJudgement() == judgement)
+										sender.sendMessage(judgement.getColor() + Integer.toString(noteHandler.getNotes(uuid).indexOf(playerNotes.get(i))) + ". " + "(" + args[1] + ")" + msg);
 								}
 								else
 								{
-									int num = notehdlr.getNotes(pid).indexOf(pNotes.get(i)) + 1;
-									if(pNotes.get(i).getJudgement() == Judgement.POSITIVE)
+									int num = noteHandler.getNotes(uuid).indexOf(playerNotes.get(i)) + 1;
+									if(playerNotes.get(i).getJudgement() == Judgement.POSITIVE)
 									{
-										sender.sendMessage(pNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(+)" + msg);
+										sender.sendMessage(playerNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(+)" + msg);
 									}
-									else if(pNotes.get(i).getJudgement() == Judgement.NEGATIVE)
+									else if(playerNotes.get(i).getJudgement() == Judgement.NEGATIVE)
 									{
-										sender.sendMessage(pNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(-)" + msg);
+										sender.sendMessage(playerNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(-)" + msg);
 									}
-									else if(pNotes.get(i).getJudgement() == Judgement.ISSUE)
+									else if(playerNotes.get(i).getJudgement() == Judgement.ISSUE)
 									{
-										sender.sendMessage(pNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(!)" + msg);
+										sender.sendMessage(playerNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(!)" + msg);
 									}
 								}
 							}

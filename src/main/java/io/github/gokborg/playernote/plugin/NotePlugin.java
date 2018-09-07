@@ -5,8 +5,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,36 +22,37 @@ public class NotePlugin extends JavaPlugin
 {
 	//TODO: Add pages to notes
 	//TODO: Remove option for notes
-	private NoteHandler notehdlr;
+	private NoteHandler noteHandler;
 	
 	public void onEnable()
 	{
-		HashMap<UUID, ArrayList<Note>> serverNotes = readNotes();
+		Map<UUID, List<Note>> serverNotes = readNotes();
 		if(serverNotes == null)
 		{
-			serverNotes = new HashMap<UUID, ArrayList<Note>>();
+			serverNotes = new HashMap<UUID, List<Note>>();
 		}
 		
-		notehdlr = new NoteHandler(serverNotes);
-		getServer().getPluginManager().registerEvents(new PlayerLogin(notehdlr), this);
-		getCommand("playernote").setExecutor(new CreateNote(notehdlr));
-		getCommand("getplayernote").setExecutor(new GetNote(notehdlr));
-		getCommand("rmplayernote").setExecutor(new RemoveNote(notehdlr));
-		getCommand("clearplayernotes").setExecutor(new WipeNotes(notehdlr));
-		getCommand("clearservernotes").setExecutor(new WipeServerNotes(notehdlr));
+		noteHandler = new NoteHandler(serverNotes);
+		getServer().getPluginManager().registerEvents(new PlayerLogin(noteHandler), this);
+		
+		getCommand("playernote").setExecutor(new CreateNote(noteHandler));
+		getCommand("getplayernote").setExecutor(new GetNote(noteHandler));
+		getCommand("rmplayernote").setExecutor(new RemoveNote(noteHandler));
+		getCommand("clearplayernotes").setExecutor(new WipeNotes(noteHandler));
+		getCommand("clearservernotes").setExecutor(new WipeServerNotes(noteHandler));
 	}
 	
 	public void onDisable()
 	{
-		writeNotes(notehdlr.getServerNotes());
+		writeNotes(noteHandler.getServerNotes());
 	}
 	
-	public static void writeNotes(HashMap<UUID, ArrayList<Note>> notes)
+	public static void writeNotes(Map<UUID, List<Note>> serverNotes)
 	{
 		try
 		{
 			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("notesdata.bin"));
-			os.writeObject(notes);
+			os.writeObject(serverNotes);
 			os.close();
 		}
 		catch(IOException e)
@@ -61,19 +63,19 @@ public class NotePlugin extends JavaPlugin
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static HashMap<UUID, ArrayList<Note>> readNotes()
+	public static Map<UUID, List<Note>> readNotes()
 	{
-		HashMap<UUID, ArrayList<Note>> notes = null;
+		Map<UUID, List<Note>> serverNotes = null;
 		try
 		{
 			ObjectInputStream is = new ObjectInputStream(new FileInputStream("notesdata.bin"));
-			notes = (HashMap<UUID, ArrayList<Note>>) is.readObject();
+			serverNotes = (Map<UUID, List<Note>>) is.readObject();
 			is.close();
 		}
 		catch(IOException | ClassNotFoundException e)
 		{
 		}
 		
-		return notes;
+		return serverNotes;
 	}
 }

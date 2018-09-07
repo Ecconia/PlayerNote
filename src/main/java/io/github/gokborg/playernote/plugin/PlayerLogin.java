@@ -6,19 +6,19 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class PlayerLogin implements Listener
 {
-	private NoteHandler notehdlr;
+	private NoteHandler noteHandler;
 	
-	public PlayerLogin(NoteHandler notehdlr)
+	public PlayerLogin(NoteHandler noteHandler)
 	{
-		this.notehdlr = notehdlr;
+		this.noteHandler = noteHandler;
 	}
 	
-	public void onPlayerJoin(PlayerJoinEvent pje)
+	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-		Player player = pje.getPlayer();
-		if(!notehdlr.hasNotes(player.getUniqueId()))
+		Player player = event.getPlayer();
+		if(!noteHandler.hasNotes(player.getUniqueId()))
 		{
-			notehdlr.createPage(player.getUniqueId());
+			noteHandler.createPage(player.getUniqueId());
 		}
 	}
 }

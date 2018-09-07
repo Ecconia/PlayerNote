@@ -2,7 +2,8 @@ package io.github.gokborg.playernote.plugin;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.OfflinePlayer;
@@ -10,25 +11,25 @@ import org.bukkit.command.CommandSender;
 
 public class NoteHandler
 {
-	private final HashMap<UUID, ArrayList<Note>> serverNotes;
+	private final Map<UUID, List<Note>> serverNotes;
 	
-	public NoteHandler(HashMap<UUID, ArrayList<Note>> serverNotes)
+	public NoteHandler(Map<UUID, List<Note>> serverNotes)
 	{
 		this.serverNotes = serverNotes;
 	}
 	
-	public void addNote(CommandSender sender, OfflinePlayer other, Date date, String msg, Judgement type)
+	public void addNote(CommandSender sender, OfflinePlayer targetPlayer, Date date, String msg, Judgement type)
 	{
-		UUID uuid = other.getUniqueId();
+		UUID uuid = targetPlayer.getUniqueId();
 		if(serverNotes.containsKey(uuid))
 		{
 			int noteId = serverNotes.get(uuid).size() + 1;
-			serverNotes.get(uuid).add(new Note(sender.getName(), other.getName(), date, msg, type, noteId));
+			serverNotes.get(uuid).add(new Note(sender.getName(), targetPlayer.getName(), date, msg, type, noteId));
 		}
 		else
 		{
-			ArrayList<Note> playerNotes = new ArrayList<Note>();
-			playerNotes.add(new Note(sender.getName(), other.getName(), date, msg, type, 1));
+			List<Note> playerNotes = new ArrayList<Note>();
+			playerNotes.add(new Note(sender.getName(), targetPlayer.getName(), date, msg, type, 1));
 			serverNotes.put(uuid, playerNotes);
 		}
 	}
@@ -44,12 +45,12 @@ public class NoteHandler
 		serverNotes.put(uuid, new ArrayList<Note>());
 	}
 	
-	public ArrayList<Note> getNotes(UUID uuid)
+	public List<Note> getNotes(UUID uuid)
 	{
 		return serverNotes.get(uuid);
 	}
 	
-	public HashMap<UUID, ArrayList<Note>> getServerNotes()
+	public Map<UUID, List<Note>> getServerNotes()
 	{
 		return serverNotes;
 	}

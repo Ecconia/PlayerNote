@@ -10,11 +10,11 @@ import io.github.gokborg.playernote.plugin.NoteHandler;
 
 public class RemoveNote implements CommandExecutor
 {
-	NoteHandler notehdlr;
+	NoteHandler noteHandler;
 	
-	public RemoveNote(NoteHandler notehdlr)
+	public RemoveNote(NoteHandler noteHandler)
 	{
-		this.notehdlr = notehdlr;
+		this.noteHandler = noteHandler;
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -23,24 +23,24 @@ public class RemoveNote implements CommandExecutor
 	{
 		if(args.length == 2)
 		{
-			OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-			if(player != null)
+			OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[0]);
+			if(targetPlayer != null)
 			{
-				if(notehdlr.hasNotes(player.getUniqueId()))
+				if(noteHandler.hasNotes(targetPlayer.getUniqueId()))
 				{
 					int value = Integer.valueOf(args[1]);
 					if(value >= 1)
 					{
-						if(notehdlr.getNotes(player.getUniqueId()) != null)
+						if(noteHandler.getNotes(targetPlayer.getUniqueId()) != null)
 						{
-							if(value > notehdlr.getNotes(player.getUniqueId()).size())
+							if(value > noteHandler.getNotes(targetPlayer.getUniqueId()).size())
 							{
 								sender.sendMessage("Invalid number!");
 								return false;
 							}
 							
 							value -= 1;
-							notehdlr.removeNote(player.getUniqueId(), value);
+							noteHandler.removeNote(targetPlayer.getUniqueId(), value);
 							sender.sendMessage("The note has been removed!");
 						}
 						else

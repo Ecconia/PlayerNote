@@ -10,11 +10,11 @@ import io.github.gokborg.playernote.plugin.NoteHandler;
 
 public class WipeNotes implements CommandExecutor
 {
-	NoteHandler notehdlr;
+	NoteHandler noteHandler;
 	
-	public WipeNotes(NoteHandler notehdlr)
+	public WipeNotes(NoteHandler noteHandler)
 	{
-		this.notehdlr = notehdlr;
+		this.noteHandler = noteHandler;
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -23,12 +23,12 @@ public class WipeNotes implements CommandExecutor
 	{
 		if(args.length == 1)
 		{
-			OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
-			if(player != null)
+			OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[0]);
+			if(targetPlayer != null)
 			{
-				if(notehdlr.hasNotes(player.getUniqueId()))
+				if(noteHandler.hasNotes(targetPlayer.getUniqueId()))
 				{
-					notehdlr.wipe(player.getUniqueId());
+					noteHandler.wipe(targetPlayer.getUniqueId());
 				}
 				else
 				{
