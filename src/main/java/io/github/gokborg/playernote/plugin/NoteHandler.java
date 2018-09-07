@@ -17,7 +17,7 @@ public class NoteHandler
 		this.serverNotes = serverNotes;
 	}
 	
-	public void addNote(CommandSender sender, OfflinePlayer other, Date date, String msg, ID type)
+	public void addNote(CommandSender sender, OfflinePlayer other, Date date, String msg, Judgement type)
 	{
 		UUID pid = other.getUniqueId();
 		if(serverNotes.containsKey(pid))

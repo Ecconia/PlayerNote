@@ -10,7 +10,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import io.github.gokborg.playernote.plugin.ID;
+import io.github.gokborg.playernote.plugin.Judgement;
 import io.github.gokborg.playernote.plugin.Note;
 import io.github.gokborg.playernote.plugin.NoteHandler;
 
@@ -78,7 +78,7 @@ public class GetNote implements CommandExecutor
 					
 					int startIndex = 0;
 					int endIndex = 0;
-					ID constantType = null;
+					Judgement judgement = null;
 					//For command 2 & 3, [Reference the multi-line comment below onCommand function]
 					
 					if(args.length > 1 && isInteger(args[1]))
@@ -105,15 +105,15 @@ public class GetNote implements CommandExecutor
 							{
 								if(args[1].equalsIgnoreCase("+"))
 								{
-									constantType = ID.POSITIVE;
+									judgement = Judgement.POSITIVE;
 								}
 								else if(args[1].equalsIgnoreCase("-"))
 								{
-									constantType = ID.NEGATIVE;
+									judgement = Judgement.NEGATIVE;
 								}
 								else if(args[1].equalsIgnoreCase("!"))
 								{
-									constantType = ID.ISSUE;
+									judgement = Judgement.ISSUE;
 								}
 								else
 								{
@@ -144,25 +144,25 @@ public class GetNote implements CommandExecutor
 							if(i <= sizeOfNotes - 1)
 							{
 								String msg = " " + format.format(pNotes.get(i).getDate()) + " " + pNotes.get(i).getSender() + ": " + pNotes.get(i).getMsg();
-								if(constantType != null)
+								if(judgement != null)
 								{
-									if(pNotes.get(i).getType() == constantType)
-										sender.sendMessage(constantType.getColor() + Integer.toString(notehdlr.getNotes(pid).indexOf(pNotes.get(i))) + ". " + "(" + args[1] + ")" + msg);
+									if(pNotes.get(i).getJudgement() == judgement)
+										sender.sendMessage(judgement.getColor() + Integer.toString(notehdlr.getNotes(pid).indexOf(pNotes.get(i))) + ". " + "(" + args[1] + ")" + msg);
 								}
 								else
 								{
 									int num = notehdlr.getNotes(pid).indexOf(pNotes.get(i)) + 1;
-									if(pNotes.get(i).getType() == ID.POSITIVE)
+									if(pNotes.get(i).getJudgement() == Judgement.POSITIVE)
 									{
-										sender.sendMessage(pNotes.get(i).getType().getColor() + Integer.toString(num) + ". " + "(+)" + msg);
+										sender.sendMessage(pNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(+)" + msg);
 									}
-									else if(pNotes.get(i).getType() == ID.NEGATIVE)
+									else if(pNotes.get(i).getJudgement() == Judgement.NEGATIVE)
 									{
-										sender.sendMessage(pNotes.get(i).getType().getColor() + Integer.toString(num) + ". " + "(-)" + msg);
+										sender.sendMessage(pNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(-)" + msg);
 									}
-									else if(pNotes.get(i).getType() == ID.ISSUE)
+									else if(pNotes.get(i).getJudgement() == Judgement.ISSUE)
 									{
-										sender.sendMessage(pNotes.get(i).getType().getColor() + Integer.toString(num) + ". " + "(!)" + msg);
+										sender.sendMessage(pNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(!)" + msg);
 									}
 								}
 							}

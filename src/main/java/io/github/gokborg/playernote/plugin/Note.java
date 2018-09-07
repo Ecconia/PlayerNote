@@ -6,20 +6,21 @@ import java.util.Date;
 public class Note implements Serializable
 {
 	private static final long serialVersionUID = 1L;
+	
 	private String msg;
 	private Date date;
 	private String sender;
 	private String other;
-	private ID type;
+	private Judgement judgement;
 	private int noteID;
 	
-	public Note(String sender, String other, Date date, String msg, ID type, int noteID)
+	public Note(String sender, String other, Date date, String msg, Judgement type, int noteID)
 	{
 		this.msg = msg;
 		this.date = date;
 		this.sender = sender;
 		this.other = other;
-		this.type = type;
+		this.judgement = type;
 		this.noteID = noteID;
 	}
 	
@@ -63,14 +64,14 @@ public class Note implements Serializable
 		this.other = other;
 	}
 	
-	public ID getType()
+	public Judgement getJudgement()
 	{
-		return type;
+		return judgement;
 	}
 	
-	public void setType(ID type)
+	public void setJudgement(Judgement judgement)
 	{
-		this.type = type;
+		this.judgement = judgement;
 	}
 	
 	public int getNoteID()

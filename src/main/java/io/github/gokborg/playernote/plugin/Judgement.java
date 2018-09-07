@@ -2,7 +2,7 @@ package io.github.gokborg.playernote.plugin;
 
 import org.bukkit.ChatColor;
 
-public enum ID
+public enum Judgement
 {
 	POSITIVE(ChatColor.GREEN),
 	NEGATIVE(ChatColor.RED),
@@ -10,13 +10,13 @@ public enum ID
 	
 	private ChatColor color;
 	
+	private Judgement(ChatColor color)
+	{
+		this.color = color;
+	}
+	
 	public ChatColor getColor()
 	{
 		return this.color;
-	}
-	
-	private ID(ChatColor color)
-	{
-		this.color = color;
 	}
 }

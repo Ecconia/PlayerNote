@@ -8,7 +8,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import io.github.gokborg.playernote.plugin.ID;
+import io.github.gokborg.playernote.plugin.Judgement;
 import io.github.gokborg.playernote.plugin.NoteHandler;
 
 public class CreateNote implements CommandExecutor
@@ -35,19 +35,19 @@ public class CreateNote implements CommandExecutor
 					msg += args[i] + " ";
 				}
 				
-				ID type = null;
+				Judgement type = null;
 				
 				if(args[1].equalsIgnoreCase("+"))
 				{
-					type = ID.POSITIVE;
+					type = Judgement.POSITIVE;
 				}
 				else if(args[1].equalsIgnoreCase("-"))
 				{
-					type = ID.NEGATIVE;
+					type = Judgement.NEGATIVE;
 				}
 				else if(args[1].equalsIgnoreCase("!"))
 				{
-					type = ID.ISSUE;
+					type = Judgement.ISSUE;
 				}
 				else
 				{
