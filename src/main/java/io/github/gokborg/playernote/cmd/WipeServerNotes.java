@@ -20,7 +20,7 @@ public class WipeServerNotes implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		if(cmd.getName().equalsIgnoreCase("clearservernotes") && args.length == 1 && sender.hasPermission("clearservernotes.permission"))
+		if(args.length == 1)
 		{
 			if(args[0].equalsIgnoreCase("confirm"))
 			{

@@ -57,7 +57,7 @@ public class GetNote implements CommandExecutor
 		 * 2. Returns all notes
 		 */
 		
-		if(cmd.getName().equalsIgnoreCase("getplayernote") && sender.hasPermission("getplayernote.permission") && args.length >= 1)
+		if(args.length >= 1)
 		{
 			//Going through all players in the server notes
 			for(UUID pid : notehdlr.getServerNotes().keySet())

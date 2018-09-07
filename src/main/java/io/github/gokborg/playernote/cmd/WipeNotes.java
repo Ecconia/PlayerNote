@@ -21,7 +21,7 @@ public class WipeNotes implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		if(cmd.getName().equalsIgnoreCase("clearplayernotes") && args.length == 1 && sender.hasPermission("clearplayernotes.permission"))
+		if(args.length == 1)
 		{
 			OfflinePlayer player = Bukkit.getOfflinePlayer(args[0]);
 			if(player != null)

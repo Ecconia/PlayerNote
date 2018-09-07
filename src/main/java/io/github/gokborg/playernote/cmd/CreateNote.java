@@ -24,7 +24,7 @@ public class CreateNote implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		if(cmd.getName().equalsIgnoreCase("playernote") && args.length >= 3)
+		if(args.length >= 3)
 		{
 			OfflinePlayer other = Bukkit.getOfflinePlayer(args[0]);
 			if(Bukkit.getOfflinePlayer(args[0]) != null)
