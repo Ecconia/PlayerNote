@@ -36,10 +36,6 @@ public class GetNote implements CommandExecutor
 		{
 			return false;
 		}
-		catch(NullPointerException e)
-		{
-			return false;
-		}
 		
 		return true;
 	}
@@ -63,7 +59,7 @@ public class GetNote implements CommandExecutor
 			for(UUID pid : notehdlr.getServerNotes().keySet())
 			{
 				OfflinePlayer player = Bukkit.getOfflinePlayer(pid);
-				
+				//TODO: Missing null check.
 				//Check if that player is the one the person is looking for
 				if(player.getName().equalsIgnoreCase(args[0]))
 				{

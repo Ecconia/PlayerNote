@@ -27,7 +27,7 @@ public class CreateNote implements CommandExecutor
 		if(args.length >= 3)
 		{
 			OfflinePlayer other = Bukkit.getOfflinePlayer(args[0]);
-			if(Bukkit.getOfflinePlayer(args[0]) != null)
+			if(other != null)
 			{
 				String msg = "";
 				for(int i = 2; i < args.length; i++)
@@ -35,19 +35,19 @@ public class CreateNote implements CommandExecutor
 					msg += args[i] + " ";
 				}
 				
-				Judgement type = null;
+				Judgement judgement = null;
 				
 				if(args[1].equalsIgnoreCase("+"))
 				{
-					type = Judgement.POSITIVE;
+					judgement = Judgement.POSITIVE;
 				}
 				else if(args[1].equalsIgnoreCase("-"))
 				{
-					type = Judgement.NEGATIVE;
+					judgement = Judgement.NEGATIVE;
 				}
 				else if(args[1].equalsIgnoreCase("!"))
 				{
-					type = Judgement.ISSUE;
+					judgement = Judgement.ISSUE;
 				}
 				else
 				{
@@ -55,7 +55,7 @@ public class CreateNote implements CommandExecutor
 					return false;
 				}
 				
-				notehdlr.addNote(sender, other, new Date(), msg, type);
+				notehdlr.addNote(sender, other, new Date(), msg, judgement);
 				sender.sendMessage("Note has been added!");
 			}
 			else

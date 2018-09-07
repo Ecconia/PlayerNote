@@ -53,7 +53,6 @@ public class RemoveNote implements CommandExecutor
 						sender.sendMessage("Not a valid number!");
 						return false;
 					}
-					
 				}
 			}
 			else

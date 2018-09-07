@@ -20,21 +20,14 @@ public class WipeServerNotes implements CommandExecutor
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		if(args.length == 1)
+		if(args.length == 1 && args[0].equalsIgnoreCase("confirm"))
 		{
-			if(args[0].equalsIgnoreCase("confirm"))
+			for(UUID pid : notehdlr.getServerNotes().keySet())
 			{
-				for(UUID pid : notehdlr.getServerNotes().keySet())
-				{
-					notehdlr.getServerNotes().get(pid).clear();
-				}
-				
-				return true;
+				notehdlr.getServerNotes().get(pid).clear();
 			}
-			else
-			{
-				return false;
-			}
+			
+			return true;
 		}
 		
 		return false;
