@@ -1,4 +1,4 @@
-package playernote.cmd;
+package io.github.gokborg.playernote.cmd;
 
 import java.util.Date;
 
@@ -8,8 +8,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import playernote.plugin.ID;
-import playernote.plugin.NoteHandler;
+import io.github.gokborg.playernote.plugin.ID;
+import io.github.gokborg.playernote.plugin.NoteHandler;
 
 public class CreateNote implements CommandExecutor{
 	private NoteHandler notehdlr;

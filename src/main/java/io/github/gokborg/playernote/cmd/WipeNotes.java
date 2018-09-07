@@ -1,4 +1,4 @@
-package playernote.cmd;
+package io.github.gokborg.playernote.cmd;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -6,7 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import playernote.plugin.NoteHandler;
+import io.github.gokborg.playernote.plugin.NoteHandler;
 
 public class WipeNotes implements CommandExecutor{
 	NoteHandler notehdlr;

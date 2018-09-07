@@ -1,4 +1,4 @@
-package playernote.plugin;
+package io.github.gokborg.playernote.plugin;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,11 +11,11 @@ import java.util.UUID;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import playernote.cmd.CreateNote;
-import playernote.cmd.GetNote;
-import playernote.cmd.RemoveNote;
-import playernote.cmd.WipeNotes;
-import playernote.cmd.WipeServerNotes;
+import io.github.gokborg.playernote.cmd.CreateNote;
+import io.github.gokborg.playernote.cmd.GetNote;
+import io.github.gokborg.playernote.cmd.RemoveNote;
+import io.github.gokborg.playernote.cmd.WipeNotes;
+import io.github.gokborg.playernote.cmd.WipeServerNotes;
 
 public class NotePlugin extends JavaPlugin{
 	private HashMap<UUID, ArrayList<Note>> servernotes;

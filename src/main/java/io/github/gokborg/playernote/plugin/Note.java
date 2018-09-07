@@ -1,4 +1,4 @@
-package playernote.plugin;
+package io.github.gokborg.playernote.plugin;
 
 import java.io.Serializable;
 import java.util.Date;

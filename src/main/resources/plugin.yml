@@ -1,6 +1,6 @@
-main: playernote.plugin.NotePlugin
+main: io.github.gokborg.playernote.plugin.NotePlugin
 name: PlayerNote
-version: 0.01
+version: 1
 author: Gokborg, Cj, Link
 commands:
   playernote:

@@ -1,4 +1,4 @@
-package playernote.cmd;
+package io.github.gokborg.playernote.cmd;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import playernote.plugin.ID;
-import playernote.plugin.Note;
-import playernote.plugin.NoteHandler;
+import io.github.gokborg.playernote.plugin.ID;
+import io.github.gokborg.playernote.plugin.Note;
+import io.github.gokborg.playernote.plugin.NoteHandler;
 
 public class GetNote implements CommandExecutor{
 	//How many notes to display in chat
