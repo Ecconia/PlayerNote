@@ -27,12 +27,6 @@ public class CreateNote extends SubCommand
 			UUID uuid = NotePlugin.getPlayerUUID(sender.getServer(), args[0]);
 			if(uuid != null)
 			{
-				String msg = "";
-				for(int i = 2; i < args.length; i++)
-				{
-					msg += args[i] + " ";
-				}
-				
 				Judgement judgement = Judgement.getFrom(args[1]);
 				if(judgement == null)
 				{
@@ -40,20 +34,24 @@ public class CreateNote extends SubCommand
 					return;
 				}
 				
+				String msg = "";
+				for(int i = 2; i < args.length; i++)
+				{
+					msg += args[i] + " ";
+				}
+				
 				//TODO: Get the correct name at some point, with the help of a caching plugin?
 				noteHandler.addNote(sender, uuid, args[0], new Date(), msg, judgement);
-				sender.sendMessage(ChatColor.GREEN + "Note has been added!");
+				sender.sendMessage(ChatColor.GREEN + "Note has been added.");
 			}
 			else
 			{
 				sender.sendMessage(ChatColor.RED + "Player has never visited this server.");
-				return;
 			}
-			
-			return;
 		}
-		
-		//TODO: Usage
-		return;
+		else
+		{
+			sender.sendMessage(ChatColor.RED + "Usage: /note write <playername> <+, -, !> <note message>");
+		}
 	}
 }
