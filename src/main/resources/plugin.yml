@@ -18,8 +18,3 @@ commands:
     aliases: [rmnote, rmpnote]
     usage: /rmnote <player> <number>
     permission: playernote.rm
-  clearplayernotes:
-    description: Clear all the notes of a player
-    aliases: [clearpnote, clearnote]
-    usage: /clearpnote <player> 
-    permission: playernote.clear

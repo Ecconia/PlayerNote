@@ -15,7 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import io.github.gokborg.playernote.cmd.CreateNote;
 import io.github.gokborg.playernote.cmd.GetNote;
 import io.github.gokborg.playernote.cmd.RemoveNote;
-import io.github.gokborg.playernote.cmd.WipeNotes;
 
 public class NotePlugin extends JavaPlugin
 {
@@ -36,7 +35,6 @@ public class NotePlugin extends JavaPlugin
 		getCommand("playernote").setExecutor(new CreateNote(noteHandler));
 		getCommand("getplayernote").setExecutor(new GetNote(noteHandler));
 		getCommand("rmplayernote").setExecutor(new RemoveNote(noteHandler));
-		getCommand("clearplayernotes").setExecutor(new WipeNotes(noteHandler));
 	}
 	
 	public void onDisable()

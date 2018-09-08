@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 
 import io.github.gokborg.playernote.plugin.NoteHandler;
 
+//TODO: Add option and confirm to delete all notes of a player.
 public class RemoveNote implements CommandExecutor
 {
 	NoteHandler noteHandler;
