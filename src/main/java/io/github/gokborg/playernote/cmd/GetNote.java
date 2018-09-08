@@ -14,7 +14,7 @@ import io.github.gokborg.playernote.plugin.Judgement;
 import io.github.gokborg.playernote.plugin.Note;
 import io.github.gokborg.playernote.plugin.NoteHandler;
 
-public class GetNote implements CommandExecutor
+public class GetNote extends SubCommand
 {
 	//How many notes to display in chat
 	private final int DISPLAYAMT = 10;
@@ -41,7 +41,7 @@ public class GetNote implements CommandExecutor
 	}
 	
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	public void execute(CommandSender sender, String[] args)
 	{
 		/*
 		 * 1. Format: /getplayernote <player> <+ or - or !>
@@ -95,7 +95,7 @@ public class GetNote implements CommandExecutor
 							if(pageNum > totalPages || pageNum <= 0)
 							{
 								sender.sendMessage("Page number is invalid!");
-								return false;
+								return;
 							}
 							else
 							{
@@ -114,7 +114,7 @@ public class GetNote implements CommandExecutor
 								else
 								{
 									sender.sendMessage("Invalid type!");
-									return false;
+									return;
 								}
 							}
 						}
@@ -168,17 +168,16 @@ public class GetNote implements CommandExecutor
 					}
 					else
 					{
-						return false;
+						//TODO: Return Error
+						return;
 					}
 					
-					return true;
+					return;
 				}
 			}
 			
 			sender.sendMessage("Unknown Minecraft Username!");
-			return false;
+			return;
 		}
-		
-		return false;
 	}
 }

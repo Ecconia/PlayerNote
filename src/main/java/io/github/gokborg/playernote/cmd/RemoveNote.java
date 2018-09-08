@@ -2,14 +2,12 @@ package io.github.gokborg.playernote.cmd;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import io.github.gokborg.playernote.plugin.NoteHandler;
 
 //TODO: Add option and confirm to delete all notes of a player.
-public class RemoveNote implements CommandExecutor
+public class RemoveNote extends SubCommand
 {
 	NoteHandler noteHandler;
 	
@@ -20,7 +18,7 @@ public class RemoveNote implements CommandExecutor
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	public void execute(CommandSender sender, String[] args)
 	{
 		if(args.length == 2)
 		{
@@ -37,7 +35,7 @@ public class RemoveNote implements CommandExecutor
 							if(value > noteHandler.getNotes(targetPlayer.getUniqueId()).size())
 							{
 								sender.sendMessage("Invalid number!");
-								return false;
+								return;
 							}
 							
 							value -= 1;
@@ -52,21 +50,20 @@ public class RemoveNote implements CommandExecutor
 					else
 					{
 						sender.sendMessage("Not a valid number!");
-						return false;
+						return;
 					}
 				}
 			}
 			else
 			{
 				sender.sendMessage("Invalid player!");
-				return false;
+				return;
 			}
 		}
 		else
 		{
-			return false;
+			//TODO: Usage
+			return;
 		}
-		
-		return true;
 	}
 }

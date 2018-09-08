@@ -4,14 +4,12 @@ import java.util.Date;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import io.github.gokborg.playernote.plugin.Judgement;
 import io.github.gokborg.playernote.plugin.NoteHandler;
 
-public class CreateNote implements CommandExecutor
+public class CreateNote extends SubCommand
 {
 	private NoteHandler noteHandler;
 	
@@ -22,7 +20,7 @@ public class CreateNote implements CommandExecutor
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	public void execute(CommandSender sender, String[] args)
 	{
 		if(args.length >= 3)
 		{
@@ -52,7 +50,7 @@ public class CreateNote implements CommandExecutor
 				else
 				{
 					sender.sendMessage("Invalid type!");
-					return false;
+					return;
 				}
 				
 				noteHandler.addNote(sender, targetPlayer, new Date(), msg, judgement);
@@ -61,12 +59,13 @@ public class CreateNote implements CommandExecutor
 			else
 			{
 				sender.sendMessage("Player is not online!");
-				return false;
+				return;
 			}
 			
-			return true;
+			return;
 		}
 		
-		return false;
+		//TODO: Usage
+		return;
 	}
 }

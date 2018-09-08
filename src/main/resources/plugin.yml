@@ -4,17 +4,7 @@ version: 1
 author: Gokborg, Cj, Link
 commands:
   playernote:
-    description: Creates a new playernote
-    aliases: [pnote, note]
-    usage: /pnote <player> <+, -, !> <msg>
-    permission: playernote.create
-  getplayernote:
-    description: Get notes of a player
-    aliases: [getnote, getpnote]
-    usage: /getpnote <player> [+, -, !] [page number]
-    permission: playernote.get
-  rmplayernote:
-    description: Remove a player note
-    aliases: [rmnote, rmpnote]
-    usage: /rmnote <player> <number>
-    permission: playernote.rm
+    description: Create notes worth remmebering for a player
+    aliases: [note]
+    permission: playernote.read;playernote.write;playernote.remove
+    usage: /note <write, read, remove> [...]
