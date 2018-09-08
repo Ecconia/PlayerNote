@@ -23,8 +23,3 @@ commands:
     aliases: [clearpnote, clearnote]
     usage: /clearpnote <player> 
     permission: playernote.clear
-  clearservernotes:
-    description: Clears the servers notes
-    aliases: [wipenotes, svrwipenotes]
-    usage: /wipenotes <confirm>
-    permission: playernote.clear.all

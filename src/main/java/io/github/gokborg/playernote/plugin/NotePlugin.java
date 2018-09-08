@@ -16,7 +16,6 @@ import io.github.gokborg.playernote.cmd.CreateNote;
 import io.github.gokborg.playernote.cmd.GetNote;
 import io.github.gokborg.playernote.cmd.RemoveNote;
 import io.github.gokborg.playernote.cmd.WipeNotes;
-import io.github.gokborg.playernote.cmd.WipeServerNotes;
 
 public class NotePlugin extends JavaPlugin
 {
@@ -38,7 +37,6 @@ public class NotePlugin extends JavaPlugin
 		getCommand("getplayernote").setExecutor(new GetNote(noteHandler));
 		getCommand("rmplayernote").setExecutor(new RemoveNote(noteHandler));
 		getCommand("clearplayernotes").setExecutor(new WipeNotes(noteHandler));
-		getCommand("clearservernotes").setExecutor(new WipeServerNotes(noteHandler));
 	}
 	
 	public void onDisable()
