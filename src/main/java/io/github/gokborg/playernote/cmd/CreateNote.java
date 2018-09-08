@@ -3,6 +3,7 @@ package io.github.gokborg.playernote.cmd;
 import java.util.Date;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
@@ -33,23 +34,10 @@ public class CreateNote extends SubCommand
 					msg += args[i] + " ";
 				}
 				
-				Judgement judgement = null;
-				
-				if(args[1].equalsIgnoreCase("+"))
+				Judgement judgement = Judgement.getFrom(args[1]);
+				if(judgement == null)
 				{
-					judgement = Judgement.POSITIVE;
-				}
-				else if(args[1].equalsIgnoreCase("-"))
-				{
-					judgement = Judgement.NEGATIVE;
-				}
-				else if(args[1].equalsIgnoreCase("!"))
-				{
-					judgement = Judgement.ISSUE;
-				}
-				else
-				{
-					sender.sendMessage("Invalid type!");
+					sender.sendMessage(ChatColor.RED + "Invalid type, use: + - !");
 					return;
 				}
 				

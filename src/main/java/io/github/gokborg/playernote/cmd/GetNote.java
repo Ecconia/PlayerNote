@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import io.github.gokborg.playernote.plugin.Judgement;
@@ -99,21 +98,10 @@ public class GetNote extends SubCommand
 							}
 							else
 							{
-								if(args[1].equalsIgnoreCase("+"))
+								judgement = Judgement.getFrom(args[1]);
+								if(judgement == null)
 								{
-									judgement = Judgement.POSITIVE;
-								}
-								else if(args[1].equalsIgnoreCase("-"))
-								{
-									judgement = Judgement.NEGATIVE;
-								}
-								else if(args[1].equalsIgnoreCase("!"))
-								{
-									judgement = Judgement.ISSUE;
-								}
-								else
-								{
-									sender.sendMessage("Invalid type!");
+									sender.sendMessage(ChatColor.RED + "Invalid type, use: + - !");
 									return;
 								}
 							}
@@ -148,18 +136,7 @@ public class GetNote extends SubCommand
 								else
 								{
 									int num = noteHandler.getNotes(uuid).indexOf(playerNotes.get(i)) + 1;
-									if(playerNotes.get(i).getJudgement() == Judgement.POSITIVE)
-									{
-										sender.sendMessage(playerNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(+)" + msg);
-									}
-									else if(playerNotes.get(i).getJudgement() == Judgement.NEGATIVE)
-									{
-										sender.sendMessage(playerNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(-)" + msg);
-									}
-									else if(playerNotes.get(i).getJudgement() == Judgement.ISSUE)
-									{
-										sender.sendMessage(playerNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(!)" + msg);
-									}
+									sender.sendMessage(playerNotes.get(i).getJudgement().getColor() + Integer.toString(num) + ". " + "(" + playerNotes.get(i).getJudgement().getChar() + ")" + msg);
 								}
 							}
 						}
