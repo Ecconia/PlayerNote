@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 public class NoteHandler
@@ -18,9 +17,8 @@ public class NoteHandler
 		this.serverNotes = serverNotes;
 	}
 	
-	public void addNote(CommandSender sender, OfflinePlayer targetPlayer, Date date, String msg, Judgement type)
+	public void addNote(CommandSender sender, UUID uuid, String name, Date date, String msg, Judgement type)
 	{
-		UUID uuid = targetPlayer.getUniqueId();
 		List<Note> playerNotes = serverNotes.get(uuid);
 		if(playerNotes == null)
 		{
@@ -30,7 +28,7 @@ public class NoteHandler
 		
 		//TODO: Will cause duplicated ID's after removal
 		int noteId = playerNotes.size() + 1;
-		playerNotes.add(new Note(sender.getName(), targetPlayer.getName(), date, msg, type, noteId));
+		playerNotes.add(new Note(sender.getName(), name, date, msg, type, noteId));
 	}
 	
 	public void removeNote(UUID uuid, int noteID)

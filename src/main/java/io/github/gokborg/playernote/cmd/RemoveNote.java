@@ -1,10 +1,11 @@
 package io.github.gokborg.playernote.cmd;
 
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
+import java.util.UUID;
+
 import org.bukkit.command.CommandSender;
 
 import io.github.gokborg.playernote.plugin.NoteHandler;
+import io.github.gokborg.playernote.plugin.NotePlugin;
 
 //TODO: Add option and confirm to delete all notes of a player.
 public class RemoveNote extends SubCommand
@@ -16,30 +17,29 @@ public class RemoveNote extends SubCommand
 		this.noteHandler = noteHandler;
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public void execute(CommandSender sender, String[] args)
 	{
 		if(args.length == 2)
 		{
-			OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[0]);
-			if(targetPlayer != null)
+			UUID uuid = NotePlugin.getPlayerUUID(sender.getServer(), args[0]);
+			if(uuid != null)
 			{
-				if(noteHandler.hasNotes(targetPlayer.getUniqueId()))
+				if(noteHandler.hasNotes(uuid))
 				{
 					int value = Integer.valueOf(args[1]);
 					if(value >= 1)
 					{
-						if(noteHandler.getNotes(targetPlayer.getUniqueId()) != null)
+						if(noteHandler.getNotes(uuid) != null)
 						{
-							if(value > noteHandler.getNotes(targetPlayer.getUniqueId()).size())
+							if(value > noteHandler.getNotes(uuid).size())
 							{
 								sender.sendMessage("Invalid number!");
 								return;
 							}
 							
 							value -= 1;
-							noteHandler.removeNote(targetPlayer.getUniqueId(), value);
+							noteHandler.removeNote(uuid, value);
 							sender.sendMessage("The note has been removed!");
 						}
 						else

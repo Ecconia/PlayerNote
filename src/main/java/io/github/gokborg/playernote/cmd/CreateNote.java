@@ -1,14 +1,14 @@
 package io.github.gokborg.playernote.cmd;
 
 import java.util.Date;
+import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 
 import io.github.gokborg.playernote.plugin.Judgement;
 import io.github.gokborg.playernote.plugin.NoteHandler;
+import io.github.gokborg.playernote.plugin.NotePlugin;
 
 public class CreateNote extends SubCommand
 {
@@ -19,14 +19,13 @@ public class CreateNote extends SubCommand
 		this.noteHandler = noteHandler;
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public void execute(CommandSender sender, String[] args)
 	{
 		if(args.length >= 3)
 		{
-			OfflinePlayer targetPlayer = Bukkit.getOfflinePlayer(args[0]);
-			if(targetPlayer != null)
+			UUID uuid = NotePlugin.getPlayerUUID(sender.getServer(), args[0]);
+			if(uuid != null)
 			{
 				String msg = "";
 				for(int i = 2; i < args.length; i++)
@@ -41,12 +40,13 @@ public class CreateNote extends SubCommand
 					return;
 				}
 				
-				noteHandler.addNote(sender, targetPlayer, new Date(), msg, judgement);
-				sender.sendMessage("Note has been added!");
+				//TODO: Get the correct name at some point, with the help of a caching plugin?
+				noteHandler.addNote(sender, uuid, args[0], new Date(), msg, judgement);
+				sender.sendMessage(ChatColor.GREEN + "Note has been added!");
 			}
 			else
 			{
-				sender.sendMessage("Player is not online!");
+				sender.sendMessage(ChatColor.RED + "Player has never visited this server.");
 				return;
 			}
 			

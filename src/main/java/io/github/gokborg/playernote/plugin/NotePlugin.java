@@ -5,9 +5,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.bukkit.OfflinePlayer;
+import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.google.common.base.Charsets;
 
 import io.github.gokborg.playernote.cmd.CreateNote;
 import io.github.gokborg.playernote.cmd.GetNote;
@@ -80,5 +84,16 @@ public class NotePlugin extends JavaPlugin
 		//TODO: Implement
 		
 		return serverNotes;
+	}
+	
+	//TODO: Rely on some Plugin to cache all players which visited this server. This method is not meant to convert playernames to UUID's and may be faulty or even block the server for short amount.
+	public static UUID getPlayerUUID(Server server, String playerName)
+	{
+		@SuppressWarnings("deprecation")
+		OfflinePlayer player = server.getOfflinePlayer(playerName);
+		
+		//It is possible that a palayer is not existing in the Mojang cache or is not online, in that case attempt to detect if the UUID was made up by Bukkit.
+		UUID notFoundUUID = UUID.nameUUIDFromBytes(("OfflinePlayer:" + playerName).getBytes(Charsets.UTF_8));
+		return player.getUniqueId().equals(notFoundUUID) ? null : player.getUniqueId();
 	}
 }
