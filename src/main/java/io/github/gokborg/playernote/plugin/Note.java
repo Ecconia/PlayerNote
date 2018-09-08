@@ -1,12 +1,9 @@
 package io.github.gokborg.playernote.plugin;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class Note implements Serializable
+public class Note
 {
-	private static final long serialVersionUID = 1L;
-	
 	private String msg;
 	private Date date;
 	private String sender;

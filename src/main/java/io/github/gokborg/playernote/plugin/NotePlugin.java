@@ -1,10 +1,5 @@
 package io.github.gokborg.playernote.plugin;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +23,6 @@ public class NotePlugin extends JavaPlugin
 	private SubCommand commandWrite;
 	private SubCommand commandRead;
 	private SubCommand commandRemove;
-	
 	
 	public void onEnable()
 	{
@@ -76,32 +70,14 @@ public class NotePlugin extends JavaPlugin
 	
 	public static void writeNotes(Map<UUID, List<Note>> serverNotes)
 	{
-		try
-		{
-			ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("notesdata.bin"));
-			os.writeObject(serverNotes);
-			os.close();
-		}
-		catch(IOException e)
-		{
-			//TODO: Provide proper feedback
-			e.printStackTrace();
-		}
+		//TODO: Implement
 	}
 	
-	@SuppressWarnings("unchecked")
 	public static Map<UUID, List<Note>> readNotes()
 	{
 		Map<UUID, List<Note>> serverNotes = null;
-		try
-		{
-			ObjectInputStream is = new ObjectInputStream(new FileInputStream("notesdata.bin"));
-			serverNotes = (Map<UUID, List<Note>>) is.readObject();
-			is.close();
-		}
-		catch(IOException | ClassNotFoundException e)
-		{
-		}
+		
+		//TODO: Implement
 		
 		return serverNotes;
 	}
